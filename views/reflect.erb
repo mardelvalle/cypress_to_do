@@ -7,7 +7,9 @@
   </head>
   <body class='container'>
     <h1><%= @title %></h1>
-    <p>You choose: <%= Choices[@choice] %></p>
-    <p><a href='/results'>See results</a></p>
+    <p>Cool you <%= Transaction[@choice].downcase %>:</p>
+    <h3>$<%= @money %></h3>
+    <textarea placeholder="How do you feel?"></textarea>
+    <p><a href='/results'>How Have you been using your money?</a></p>
   </body>
 </html>

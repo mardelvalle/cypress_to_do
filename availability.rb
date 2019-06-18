@@ -1,13 +1,9 @@
 require 'sinatra'
 require 'yaml/store'
-Choices = {
-  'MON' => 'Monday',
-  'TUE' => 'Tuesday',
-  'WED' => 'Wednesday',
-  'THU' => 'Thursday',
-  'Fri' => 'Friday',
-  'Sat' => 'Saturday',
-  'Sun' => 'Sunday'
+Transaction = {
+  'S' => 'Spent',
+  'P' => 'Payed',
+  'I' => 'Invested'
 }
 get '' do
   @title = 'What day is it?'
@@ -24,21 +20,24 @@ get '/' do
     erb :index
 end
 
-post '/to_do' do
+post '/reflect' do
   @title = 'What will you do today?'
   @choice = params['choice']
-  @store = YAML::Store.new 'response.yml'
+  @money = params['money'].to_f
+   @store = YAML::Store.new 'response.yml'
   @store.transaction do
     @store['response'] ||= {}
     @store['response'][@choice] ||= 0
-    @store['response'][@choice] += 1
+    @store['response'][@choice] += @money
   end
-  erb :to_do
+  erb :reflect
 end
 
 get '/results' do
   @title = 'Results so far:'
+  @choose = params['choice']
   @store = YAML::Store.new 'response.yml'
   @response = @store.transaction { @store['choice'] }
+
   erb :results
 end

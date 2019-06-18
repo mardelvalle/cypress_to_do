@@ -7,18 +7,19 @@
   </head>
   <body class='container'>
     <h1><%= @title %></h1>
-    <form action='to_do' method='post'>
-      <ul class='unstyled'>
-        <% Choices.each do |id, text| %>
+    <form action='reflect' method='post'>
+      <ul class='unstyled' data-cy="list-of-dates">
+        <% Transaction.each do |id, text| %>
           <li>
             <label class='radio'>
-              <input type='radio' name='choice' value='<%= id %>' id='choice_<%= id %>' />
+              <input type='radio' name='choice' value='<%= id %>' id='choice_<%= id %>' require/>
               <%= text %>
             </label>
           </li>
         <% end %>
       </ul>
-      <button type='submit' class='btn btn-primary'>Add a List</button>
+      <input type="number" name="money" placeholder="How much?" required>
+      <button type='submit' data-cy="add-date" class='btn btn-primary'>Submit Transaction</button>
     </form>
   </body>
 </html>
